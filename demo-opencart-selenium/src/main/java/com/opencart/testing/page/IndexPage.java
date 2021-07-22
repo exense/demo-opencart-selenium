@@ -27,36 +27,25 @@ public class IndexPage extends AbstractPage {
 
 	private WebDriver driver;
 
-	public IndexPage(WebDriver driver) {this.driver = driver;}
-
-	public IndexPage gotoDesktopsCategory() {
-		clickSubMenuLink(desktops, "PC");
-		clickSubMenuLink(desktops, "Mac");
-		waitForContent();
-		return this;
+	public IndexPage(WebDriver driver) {
+		this.driver = driver;
 	}
 
-	public IndexPage gotoLaptopsCategory() {
-		clickSubMenuLink(laptops, "Macs");
-		clickSubMenuLink(laptops, "Windows");
+	public void clickSubMenuLink(String mainMenuName, String subMenuName) {
+		WebElement parentElement;
+		if (mainMenuName.equals("Desktops")) {
+			parentElement = desktops;
+		} else if (mainMenuName.equals("Laptops")) {
+			parentElement = laptops;
+		} else if (mainMenuName.equals("Components")) {
+			parentElement = components;
+		} else if (mainMenuName.equals("Tablets")) {
+			parentElement = tablets;
+		} else {
+			throw new RuntimeException("Unknown menu " + mainMenuName);
+		}
+		clickSubMenuLink(parentElement, subMenuName);
 		waitForContent();
-		return this;
-	}
-
-	public IndexPage gotoComponentsCategory() {
-		clickSubMenuLink(components, "Mice and Trackballs");
-		clickSubMenuLink(components, "Monitors");
-		clickSubMenuLink(components, "Printers");
-		clickSubMenuLink(components, "Scanners");
-		clickSubMenuLink(components, "Web Cameras");
-		waitForContent();
-		return this;
-	}
-
-	public IndexPage gotoTabletsCategory() {
-		tablets.click();
-		waitForContent();
-		return this;
 	}
 
 	private void hoverHoverLink(WebElement element) {
@@ -68,9 +57,9 @@ public class IndexPage extends AbstractPage {
 		hoverHoverLink(parentElement);
 		driver.findElement(By.partialLinkText(partialLinkText)).click();
 	}
-	
+
 	private void waitForContent() {
-		waitForElement(driver,	"//*[@id=\"content\"]/h2",10);
+		waitForElement(driver, "//*[@id=\"content\"]/h2", 10);
 	}
 
 }
