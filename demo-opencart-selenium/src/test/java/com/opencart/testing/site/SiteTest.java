@@ -7,9 +7,13 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import com.opencart.testing.page.IndexPage;
 import com.opencart.testing.page.LoginPage;
 
-public class SiteTest {
+import step.handlers.javahandler.AbstractKeyword;
+import step.handlers.javahandler.Keyword;
 
-	@Test
+public class SiteTest extends AbstractKeyword {
+
+	@Test()
+	@Keyword(name = "Navigate through desktop categories")
 	public void testDesktopsCategory() {
 		WebDriver webDriver = new ChromeDriver();
 
@@ -21,13 +25,12 @@ public class SiteTest {
 		IndexPage indexPage = site.gotoIndexPage();
 		indexPage.clickSubMenuLink("Desktops", "PC");
 		indexPage.clickSubMenuLink("Desktops", "Mac");
-		indexPage.clickSubMenuLink("Laptops", "Macs");
-		indexPage.clickSubMenuLink("Laptops", "Windows");
-
+		
 		webDriver.quit();
 	}
-
-	@Test
+	
+	@Test()
+	@Keyword(name = "Navigate through components categories")
 	public void testComponentsCategory() {
 		WebDriver webDriver = new ChromeDriver();
 
